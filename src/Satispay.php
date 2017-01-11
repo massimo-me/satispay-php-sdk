@@ -3,6 +3,7 @@
 namespace ChiarilloMassimo\Satispay;
 
 use ChiarilloMassimo\Satispay\Authorization\Bearer;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Satispay
@@ -51,7 +52,8 @@ class Satispay
      */
     public function isAuthorized()
     {
-        return $this->client->get(
+        $response = $this->client->request(
+            'GET',
             '/wally-services/protocol/authenticated',
             [
                 'headers' => [
@@ -60,5 +62,12 @@ class Satispay
                 'verify' => $this->isLive()
             ]
         );
+
+        if (! $response instanceof ResponseInterface) {
+            return false;
+        }
+
+        //No content
+        return (204 === $response->getStatusCode());
     }
 }
