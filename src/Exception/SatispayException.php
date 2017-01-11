@@ -3,10 +3,10 @@
 namespace ChiarilloMassimo\Satispay\Exception;
 
 /**
- * Class RequestException
- * @package ChiarilloMassimo\Satispay
+ * Class SatispayException
+ * @package ChiarilloMassimo\Satispay\Exception
  */
-class RequestException extends \Exception
+class SatispayException extends \Exception
 {
     /**
      * RequestException constructor.

@@ -10,4 +10,4 @@ $satispay = new Satispay(
     'sandbox'
 );
 
-var_dump($satispay->isAuthorized());
+var_dump($satispay->getBearerHandler()->isAuthorized());

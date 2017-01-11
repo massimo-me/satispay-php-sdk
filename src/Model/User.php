@@ -16,7 +16,7 @@ class User
     /**
      * @var string
      */
-    protected $phone;
+    protected $phoneNumber;
 
     /**
      * @return string
@@ -27,20 +27,31 @@ class User
     }
 
     /**
-     * @return string
+     * @param string $id
+     * @return $this
      */
-    public function getPhone()
+    public function setId($id)
     {
-        return $this->phone;
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
-     * @param string $phone
+     * @return string
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+
+    /**
+     * @param string $phoneNumber
      * @return $this
      */
-    public function setPhone($phone)
+    public function setPhoneNumber($phoneNumber)
     {
-        $this->phone = $phone;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }

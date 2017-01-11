@@ -6,9 +6,7 @@
 - [ ] Daily closure
 - [ ] Refunds
 
-#API: Check Bearer
-
-https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#api-check-bearer
+#API: Init
 
 ```php
 use ChiarilloMassimo\Satispay\Authorization\Bearer;
@@ -18,9 +16,21 @@ $satispay = new Satispay(
     new Bearer('osh_...'),
     'sandbox'
 );
+```
 
-if ($satispay->isAuthorized()) {
+###API: Check Bearer
+
+```php
+if ($satispay->getBearerHandler()->isAuthorized()) {
  ....
 };
+```
+
+###API: Users
+
+###Creation
+
+```php
+$satispay->getUserHandler()->create('+39 yourphone')
 ```
 

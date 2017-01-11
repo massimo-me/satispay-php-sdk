@@ -3,7 +3,9 @@
 namespace ChiarilloMassimo\Satispay;
 
 use ChiarilloMassimo\Satispay\Authorization\Bearer;
-use Psr\Http\Message\ResponseInterface;
+use ChiarilloMassimo\Satispay\Handler\BearerHandler;
+use ChiarilloMassimo\Satispay\Handler\UserHandler;
+use ChiarilloMassimo\Satispay\Http\Client;
 
 /**
  * Class Satispay
@@ -36,7 +38,16 @@ class Satispay
         $this->bearer = $bearer;
         $this->mode = $mode;
 
-        $this->client = new Client($this->isLive());
+        $this->client = (new Client($this->isLive()))
+            ->setRequestOptions(
+                [
+                    'headers' => [
+                        'Authorization' => sprintf('Bearer %s', $this->bearer->getToken()),
+                        'Content-Type' => 'application/json'
+                    ],
+                    'verify' => $this->isLive()
+                ]
+            );
     }
 
     /**
@@ -47,27 +58,24 @@ class Satispay
         return ('live' === $this->mode);
     }
 
+
     /**
-     * @return bool
+     * @todo: Auto instance handler
      */
-    public function isAuthorized()
+
+    /**
+     * @return BearerHandler
+     */
+    public function getBearerHandler()
     {
-        $response = $this->client->request(
-            'GET',
-            '/wally-services/protocol/authenticated',
-            [
-                'headers' => [
-                    'Authorization' => sprintf('Bearer %s', $this->bearer->getToken())
-                ],
-                'verify' => $this->isLive()
-            ]
-        );
+        return new BearerHandler($this->client);
+    }
 
-        if (! $response instanceof ResponseInterface) {
-            return false;
-        }
-
-        //No content
-        return (204 === $response->getStatusCode());
+    /**
+     * @return UserHandler
+     */
+    public function getUserHandler()
+    {
+        return new UserHandler($this->client);
     }
 }
