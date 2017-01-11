@@ -1,0 +1,10 @@
+{
+  "autoload" : {
+    "psr-4" : {
+      "ChiarilloMassimo\\Satispay\\" : "src"
+    }
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^6.2"
+  }
+}
