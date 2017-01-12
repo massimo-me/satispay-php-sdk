@@ -34,3 +34,8 @@ if ($satispay->getBearerHandler()->isAuthorized()) {
 $satispay->getUserHandler()->create('+39 yourphone')
 ```
 
+###Get
+
+```php
+$satispay->getUserHandler()->get('id')
+```

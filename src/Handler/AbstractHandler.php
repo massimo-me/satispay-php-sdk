@@ -3,6 +3,7 @@
 namespace ChiarilloMassimo\Satispay\Handler;
 
 use ChiarilloMassimo\Satispay\Http\Client;
+use ChiarilloMassimo\Satispay\Http\Response;
 
 /**
  * Class AbstractHandler
@@ -30,5 +31,14 @@ abstract class AbstractHandler
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * @param Response $response
+     * @return bool
+     */
+    public function isResponseOk(Response $response)
+    {
+        return (Response::HTTP_OK === $response->getStatusCode());
     }
 }

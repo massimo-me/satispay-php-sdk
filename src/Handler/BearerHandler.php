@@ -3,7 +3,6 @@
 namespace ChiarilloMassimo\Satispay\Handler;
 
 use ChiarilloMassimo\Satispay\Http\Response;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class BearerHandler
@@ -20,11 +19,6 @@ class BearerHandler extends AbstractHandler
             'GET',
             '/wally-services/protocol/authenticated'
         );
-
-
-        if (! $response instanceof Response) {
-            return false;
-        }
 
         return (Response::HTTP_NO_CONTENT === $response->getStatusCode());
     }

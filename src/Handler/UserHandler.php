@@ -2,7 +2,6 @@
 
 namespace ChiarilloMassimo\Satispay\Handler;
 
-use ChiarilloMassimo\Satispay\Http\Response;
 use ChiarilloMassimo\Satispay\Model\User;
 
 /**
@@ -27,13 +26,33 @@ class UserHandler extends AbstractHandler
             ]
         );
 
-        if (Response::HTTP_OK !== $response->getStatusCode()) {
+        if (! $this->isResponseOk($response)) {
             return false;
         }
 
         return (new User())
             ->setPhoneNumber($phoneNumber)
             ->setId($response->getProperty('id'));
+    }
+
+    /**
+     * @param $id
+     * @return bool|User
+     */
+    public function get($id)
+    {
+        $response = $this->getClient()->request(
+            'GET',
+            sprintf('/online/v1/users/%s', $id)
+        );
+
+        if (! $this->isResponseOk($response)) {
+            return false;
+        }
+
+        return (new User())
+            ->setId($response->getProperty('id'))
+            ->setPhoneNumber($response->getProperty('phone_number'));
     }
 }
 
