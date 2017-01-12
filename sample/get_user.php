@@ -11,4 +11,4 @@ $satispay = new Satispay(
 );
 
 //Return ChiarilloMassimo\Satispay\Model\User
-var_dump($satispay->getUserHandler()->get('{id}'));
+var_dump($satispay->getUserHandler()->findOneById('{id}'));

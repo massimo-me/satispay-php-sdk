@@ -1,10 +1,21 @@
 {
+  "name": "chiarillomassimo/satispay-php-sdk",
+  "description": "PHP SDK for Satispay API",
+  "license": "MIT",
+  "authors": [
+      {
+        "name": "Chiarillo Massimo",
+        "email": "hello@massimo.me",
+        "homepage": "https://chiarillo.massimo.me",
+        "role": "Developer"
+      }
+  ],
   "autoload" : {
-    "psr-4" : {
-      "ChiarilloMassimo\\Satispay\\" : "src"
-    }
+      "psr-4" : {
+        "ChiarilloMassimo\\Satispay\\" : "src"
+      }
   },
   "require": {
-    "guzzlehttp/guzzle": "^6.2"
+      "guzzlehttp/guzzle": "^6.2"
   }
 }

@@ -1,7 +1,7 @@
 #Satispay PHP SDK
 
 - [X] Check Bearer
-- [ ] Users
+- [X] Users
 - [ ] Charges
 - [ ] Daily closure
 - [ ] Refunds
@@ -37,5 +37,18 @@ $satispay->getUserHandler()->create('+39 yourphone')
 ###Get
 
 ```php
-$satispay->getUserHandler()->get('id')
+$satispay->getUserHandler()->findOneById('id')
+```
+
+###Find
+
+```php
+$satispay->getUserHandler()->find()
+$satispay->getUserHandler()->find(50, 'starting_id', 'ending_id')
+
+$users = $satispay->getUserHandler()->find();
+
+foreach ($users as $user) {
+    var_dump($user->getPhoneNumber());
+}
 ```

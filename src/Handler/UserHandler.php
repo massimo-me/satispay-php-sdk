@@ -3,6 +3,7 @@
 namespace ChiarilloMassimo\Satispay\Handler;
 
 use ChiarilloMassimo\Satispay\Model\User;
+use ChiarilloMassimo\Satispay\Model\UserCollection;
 
 /**
  * Class UserHandler
@@ -11,8 +12,11 @@ use ChiarilloMassimo\Satispay\Model\User;
 class UserHandler extends AbstractHandler
 {
     /**
+     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#create-a-user
+     *
      * @param $phoneNumber
-     * @return bool
+     *
+     * @return bool|User
      */
     public function create($phoneNumber)
     {
@@ -30,16 +34,20 @@ class UserHandler extends AbstractHandler
             return false;
         }
 
-        return (new User())
-            ->setPhoneNumber($phoneNumber)
-            ->setId($response->getProperty('id'));
+        return new User(
+            $response->getProperty('id'),
+            $phoneNumber
+        );
     }
 
     /**
+     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-user
+     *
      * @param $id
-     * @return bool|User
+     *
+     * @return null|User
      */
-    public function get($id)
+    public function findOneById($id)
     {
         $response = $this->getClient()->request(
             'GET',
@@ -47,12 +55,54 @@ class UserHandler extends AbstractHandler
         );
 
         if (! $this->isResponseOk($response)) {
-            return false;
+            return null;
         }
 
-        return (new User())
-            ->setId($response->getProperty('id'))
-            ->setPhoneNumber($response->getProperty('phone_number'));
+        return new User(
+            $response->getProperty('id'),
+            $response->getProperty('phone_number')
+        );
+    }
+
+    /**
+     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-user-list
+     *
+     * @param int $limit
+     * @param string $startingAfter
+     * @param $endingBefore
+     *
+     * @return null|UserCollection
+     */
+    public function find($limit = 20, $startingAfter = '', $endingBefore = '')
+    {
+        $response = $this->getClient()->request(
+            'GET',
+            '/online/v1/users', [
+                'query' =>
+                    [
+                        'limit' => $limit,
+                        'starting_after' => ($startingAfter) ? $startingAfter : null,
+                        'ending_before' => ($endingBefore) ? $endingBefore : null
+                    ]
+            ]
+        );
+
+        if (! $this->isResponseOk($response)) {
+            return null;
+        }
+
+        return new UserCollection(
+            array_map(
+                function($object) {
+                    return new User(
+                        $object->id,
+                        $object->phone_number
+                    );
+                },
+                $response->getProperty('list')
+            ),
+            $response->getProperty('has_more')
+        );
     }
 }
 

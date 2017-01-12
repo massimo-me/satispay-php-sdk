@@ -19,6 +19,17 @@ class User
     protected $phoneNumber;
 
     /**
+     * User constructor.
+     * @param null $id
+     * @param null $phoneNumber
+     */
+    public function __construct($id = null, $phoneNumber = null)
+    {
+        $this->id = $id;
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    /**
      * @return string
      */
     public function getId()
