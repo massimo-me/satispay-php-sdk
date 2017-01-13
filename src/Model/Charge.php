@@ -2,12 +2,43 @@
 
 namespace ChiarilloMassimo\Satispay\Model;
 
+use ChiarilloMassimo\Satispay\Http\Response;
+
 /**
  * Class Charge
  * @package ChiarilloMassimo\Satispay\Model
  */
 class Charge
 {
+    //Charge sent to a user waitng for acceptance
+    const STATUS_REQUIRED = 'REQUIRED';
+
+    //Charge accepted by the user
+    const STATUS_SUCCESS = 'SUCCESS';
+
+    //Charge failed, more details can be found on STATUS_DETAIL
+    const STATUS_FAILURE = 'FAILURE';
+
+    //User declined the Charge
+    const DECLINED_BY_PAYER = 'DECLINED_BY_PAYER';
+
+    //User declined the Charge because he did not request it
+    const DECLINED_BY_PAYER_NOT_REQUIRED = 'DECLINED_BY_PAYER_NOT_REQUIRED';
+
+    //Same Charge sent to the same user, the second will override the first
+    const CANCEL_BY_NEW_CHARGE = 'CANCEL_BY_NEW_CHARGE';
+
+    //Generic error
+    const INTERNAL_FAILURE = 'INTERNAL_FAILURE';
+
+    //The Charge has expired
+    const EXPIRED = 'EXPIRED';
+
+    /**
+     * @var string
+     */
+    protected $id;
+
     /**
      * @var User
      */
@@ -31,7 +62,7 @@ class Charge
     /**
      * @var array
      */
-    protected $metadata = [];
+    protected $extraFields = [];
 
     /**
      * @var bool
@@ -44,9 +75,48 @@ class Charge
     protected $expireMinutes = 15;
 
     /**
+     * @var \DateTime
+     */
+    protected $expireDate;
+
+    /**
      * @var string
      */
     protected $callbackUrl;
+
+    /**
+     * @var bool
+     */
+    protected $paid;
+
+    /**
+     * @var string
+     */
+    protected $status;
+
+    /**
+     * @var string
+     */
+    protected $details;
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -125,20 +195,20 @@ class Charge
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getMetadata()
+    public function getExtraFields()
     {
-        return $this->metadata;
+        return $this->extraFields;
     }
 
     /**
-     * @param mixed $metadata
+     * @param array $extraFields
      * @return $this
      */
-    public function setMetadata($metadata)
+    public function setExtraFields($extraFields)
     {
-        $this->metadata = $metadata;
+        $this->extraFields = $extraFields;
 
         return $this;
     }
@@ -182,6 +252,25 @@ class Charge
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getExpireDate()
+    {
+        return $this->expireDate;
+    }
+
+    /**
+     * @param \DateTime $expireDate
+     * @return $this
+     */
+    public function setExpireDate($expireDate)
+    {
+        $this->expireDate = $expireDate;
+
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
     public function getCallbackUrl()
@@ -201,6 +290,63 @@ class Charge
     }
 
     /**
+     * @return boolean
+     */
+    public function isPaid()
+    {
+        return $this->paid;
+    }
+
+    /**
+     * @param boolean $paid
+     * @return $this
+     */
+    public function setPaid($paid)
+    {
+        $this->paid = $paid;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDetails()
+    {
+        return $this->details;
+    }
+
+    /**
+     * @param string $details
+     * @return $this
+     */
+    public function setDetails($details)
+    {
+        $this->details = $details;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -210,9 +356,9 @@ class Charge
             'description' => $this->getDescription(),
             'currency' => $this->getCurrency(),
             'amount' => $this->getAmount(),
-            'metadata' => $this->getMetadata(),
+            'metadata' => $this->getExtraFields(),
             'required_success_email' => $this->getSendMail(),
-            'expire_in' => $this->getExpire(),
+            'expire_in' => $this->getExpireMinutes(),
             'callback_url' => $this->getCallbackUrl()
         ];
     }
@@ -223,5 +369,33 @@ class Charge
     public function toJSON()
     {
         return json_encode($this->toArray());
+    }
+
+    /**
+     * @param Response $response
+     * @return static
+     */
+    public static function makeFromResponse(Response $response)
+    {
+        $charge = new static();
+
+        $user = new User($response->getProperty('user_id'));
+
+        $charge
+            ->setId($response->getProperty('id'))
+            ->setDescription($response->getProperty('description'))
+            ->setCurrency($response->getProperty('currency'))
+            ->setAmount($response->getProperty('amount'))
+            ->setStatus($response->getProperty('status'))
+            ->setUser($user->setShortName($response->getProperty('user_short_name')))
+            ->setExtraFields(get_object_vars($response->getProperty('metadata')))
+            ->setPaid($response->getProperty('paid'))
+            ->setSendMail($response->getProperty('required_success_mail'))
+            ->setExpireDate(new \DateTime($response->getProperty('expire_date')))
+            ->setCallbackUrl($response->getProperty('callback_url'))
+            ->setDetails($response->getProperty('status_details'))
+        ;
+
+        return $charge;
     }
 }

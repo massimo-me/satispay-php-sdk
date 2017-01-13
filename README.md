@@ -25,7 +25,9 @@ $satispay = new Satispay(
 );
 ```
 
-###API: Check Bearer
+##API: Check Bearer
+
+###Check Authorization
 
 ```php
 if ($satispay->getBearerHandler()->isAuthorized()) {
@@ -33,22 +35,22 @@ if ($satispay->getBearerHandler()->isAuthorized()) {
 };
 ```
 
-###API: Users
+##API: Users
 
-###Creation
+##Creation
 
 ```php
 $satispay->getUserHandler()->createByPhoneNumber('+39 yourphone')
-$satispay->getUserHandler()->create(new User(null, '+39 yourphone'))
+$satispay->getUserHandler()->persist(new User(null, '+39 yourphone'))
 ```
 
-###Get
+##Get
 
 ```php
 $satispay->getUserHandler()->findOneById('id')
 ```
 
-###Find
+##Find
 
 ```php
 $satispay->getUserHandler()->find()
@@ -59,4 +61,34 @@ $users = $satispay->getUserHandler()->find();
 foreach ($users as $user) {
     var_dump($user->getPhoneNumber());
 }
+```
+
+##API: Charge
+
+###Create
+
+```php
+use ChiarilloMassimo\Satispay\Model\Charge;
+
+$charge = new Charge();
+
+$user = $satispay->getUserHandler()->createByPhoneNumber('+39 yourphone');
+
+$charge
+    ->setUser($user)
+    ->setAmount(15) // 0.15 €
+    ->setCallbackUrl('http://fakeurl.com/satispay-callback')
+    ->setCurrency('EUR')
+    ->setDescription('Test description')
+    ->setExpireMinutes(20)
+    ->setExtraFields([
+        'orderId' => 'id',
+        'extra' => 'extra'
+    ])
+    ->setSendMail(false);
+    
+$satispay->getChargeHandler()->persist($charge, true);
+
+$charge->isPaid(); //false
+$charge->getStatus(); //Charge::STATUS_REQUIRED
 ```

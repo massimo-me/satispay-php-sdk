@@ -82,4 +82,20 @@ class Client extends BaseClient
             );
         }
     }
+
+    /**
+     * @param $name
+     * @param $value
+     * @return $this|void
+     */
+    public function addHeader($name, $value)
+    {
+        if (! array_key_exists('headers', $this->requestOptions)) {
+            return;
+        }
+
+        $this->getRequestOptions()['headers'][$name] = $value;
+
+        return $this;
+    }
 }

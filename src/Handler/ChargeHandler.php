@@ -11,11 +11,32 @@ use ChiarilloMassimo\Satispay\Model\Charge;
 class ChargeHandler extends AbstractHandler
 {
     /**
+     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#create-a-charge
+     *
      * @param Charge $charge
+     * @param bool $skipPushNotification
+     *
+     * @return bool|Charge
      */
-    public function create(Charge $charge)
+    public function persist(Charge &$charge, $skipPushNotification = false)
     {
+        $response = $this->getClient()
+            ->addHeader('x-satispay-skip-push', (bool) $skipPushNotification)
+            ->request(
+                'POST',
+                '/online/v1/charges',
+                [
+                    'json' => $charge->toArray()
+                ]
+            );
 
+        if (! $this->isResponseOk($response)) {
+            return false;
+        }
+
+        $charge = Charge::makeFromResponse($response);
+
+        return $charge;
     }
 }
 

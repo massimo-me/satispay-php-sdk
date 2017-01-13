@@ -18,7 +18,7 @@ class UserHandler extends AbstractHandler
      *
      * @return bool|User
      */
-    public function create(User $user)
+    public function persist(User &$user)
     {
         $response = $this->getClient()->request(
             'POST',
@@ -50,7 +50,7 @@ class UserHandler extends AbstractHandler
     {
         $user = new User(null, $phoneNumber);
 
-        return $this->create($user);
+        return $this->persist($user);
     }
 
     /**

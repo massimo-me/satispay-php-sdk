@@ -5,6 +5,7 @@ namespace ChiarilloMassimo\Satispay;
 use ChiarilloMassimo\Satispay\Authorization\Bearer;
 use ChiarilloMassimo\Satispay\Handler\AbstractHandler;
 use ChiarilloMassimo\Satispay\Handler\BearerHandler;
+use ChiarilloMassimo\Satispay\Handler\ChargeHandler;
 use ChiarilloMassimo\Satispay\Handler\UserHandler;
 use ChiarilloMassimo\Satispay\Http\Client;
 
@@ -90,5 +91,13 @@ class Satispay
     public function getUserHandler()
     {
         return $this->loadHandler(UserHandler::class);
+    }
+
+    /**
+     * @return ChargeHandler
+     */
+    public function getChargeHandler()
+    {
+        return $this->loadHandler(ChargeHandler::class);
     }
 }

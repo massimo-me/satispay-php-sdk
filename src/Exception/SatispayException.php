@@ -18,7 +18,7 @@ class SatispayException extends \Exception
     public function __construct($statusCode, $message, $code = null)
     {
         parent::__construct(
-            sprintf('[Satispay] %d: %s', $statusCode, $message),
+            sprintf('[Satispay] %d: %s (%s)', $statusCode, $message, ($code) ? $code : 'No error code'),
             $code
         );
     }

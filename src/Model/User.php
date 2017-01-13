@@ -19,6 +19,11 @@ class User
     protected $phoneNumber;
 
     /**
+     * @var string
+     */
+    protected $shortName;
+
+    /**
      * User constructor.
      * @param null $id
      * @param null $phoneNumber
@@ -63,6 +68,25 @@ class User
     public function setPhoneNumber($phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortName()
+    {
+        return $this->shortName;
+    }
+
+    /**
+     * @param string $shortName
+     * @return $this
+     */
+    public function setShortName($shortName)
+    {
+        $this->shortName = $shortName;
 
         return $this;
     }
