@@ -13,7 +13,7 @@
 
 Don't break your code, since it's a development version. The stable version will be published on https://packagist.org/
 
-#API: Init
+##API: Init
 
 ```php
 use ChiarilloMassimo\Satispay\Authorization\Bearer;
@@ -37,20 +37,20 @@ if ($satispay->getBearerHandler()->isAuthorized()) {
 
 ##API: Users
 
-##Creation
+###Creation
 
 ```php
 $satispay->getUserHandler()->createByPhoneNumber('+39 yourphone')
 $satispay->getUserHandler()->persist(new User(null, '+39 yourphone'))
 ```
 
-##Get
+###Get
 
 ```php
 $satispay->getUserHandler()->findOneById('id')
 ```
 
-##Find
+###Find
 
 ```php
 $satispay->getUserHandler()->find()
