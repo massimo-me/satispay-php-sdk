@@ -14,18 +14,18 @@ class UserHandler extends AbstractHandler
     /**
      * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#create-a-user
      *
-     * @param $phoneNumber
+     * @param User $user
      *
      * @return bool|User
      */
-    public function create($phoneNumber)
+    public function create(User $user)
     {
         $response = $this->getClient()->request(
             'POST',
             '/online/v1/users',
             [
                 'json' => [
-                    'phone_number' => $phoneNumber
+                    'phone_number' => $user->getPhoneNumber()
                 ]
             ]
         );
@@ -34,10 +34,23 @@ class UserHandler extends AbstractHandler
             return false;
         }
 
-        return new User(
-            $response->getProperty('id'),
-            $phoneNumber
+        $user->setId(
+            $response->getProperty('id')
         );
+
+        return $user;
+    }
+
+    /**
+     * @param $phoneNumber
+     *
+     * @return bool|User
+     */
+    public function createByPhoneNumber($phoneNumber)
+    {
+        $user = new User(null, $phoneNumber);
+
+        return $this->create($user);
     }
 
     /**

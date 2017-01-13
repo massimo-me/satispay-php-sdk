@@ -10,5 +10,8 @@ $satispay = new Satispay(
     'sandbox'
 );
 
+use ChiarilloMassimo\Satispay\Model\User;
+
 //Return ChiarilloMassimo\Satispay\Model\User
-var_dump($satispay->getUserHandler()->create('+39 phone'));
+var_dump($satispay->getUserHandler()->createByPhoneNumber('+39 phone'));
+var_dump($satispay->getUserHandler()->create(new User(null, '+39 phone')));
