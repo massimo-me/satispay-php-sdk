@@ -60,5 +60,30 @@ class ChargeHandler extends AbstractHandler
 
         return $charge;
     }
+
+    /**
+     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#update-a-charge
+     *
+     * @param Charge $charge
+     *
+     * @return Charge;
+     */
+    public function update(Charge &$charge)
+    {
+        $response = $this->getClient()
+            ->request(
+                'PUT',
+                sprintf('/online/v1/charges/%s', $charge->getId()),
+                [
+                    'json' => $charge->toArray()
+                ]
+            );
+
+        if (! $this->isResponseOk($response)) {
+            return false;
+        }
+
+        return Charge::makeFromResponse($response);
+    }
 }
 
