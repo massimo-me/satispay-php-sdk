@@ -15,10 +15,11 @@ class BearerHandler extends AbstractHandler
      */
     public function isAuthorized()
     {
-        $response = $this->getClient()->request(
-            'GET',
-            '/wally-services/protocol/authenticated'
-        );
+        $response = $this->getClient()
+            ->request(
+                'GET',
+                '/wally-services/protocol/authenticated'
+            );
 
         return (Response::HTTP_NO_CONTENT === $response->getStatusCode());
     }

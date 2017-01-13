@@ -97,7 +97,7 @@ class Charge
     /**
      * @var string
      */
-    protected $details;
+    protected $detail;
 
     /**
      * @return string
@@ -330,18 +330,18 @@ class Charge
     /**
      * @return string
      */
-    public function getDetails()
+    public function getDetail()
     {
-        return $this->details;
+        return $this->detail;
     }
 
     /**
-     * @param string $details
+     * @param string $detail
      * @return $this
      */
-    public function setDetails($details)
+    public function setDetail($detail)
     {
-        $this->details = $details;
+        $this->detail = $detail;
 
         return $this;
     }
@@ -393,7 +393,7 @@ class Charge
             ->setSendMail($response->getProperty('required_success_mail'))
             ->setExpireDate(new \DateTime($response->getProperty('expire_date')))
             ->setCallbackUrl($response->getProperty('callback_url'))
-            ->setDetails($response->getProperty('status_details'))
+            ->setDetail($response->getProperty('status_detail'))
         ;
 
         return $charge;

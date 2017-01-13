@@ -92,3 +92,9 @@ $satispay->getChargeHandler()->persist($charge, true);
 $charge->isPaid(); //false
 $charge->getStatus(); //Charge::STATUS_REQUIRED
 ```
+
+###Get
+
+```php
+$satispay->getChargeHandler()->findOneById('charge_id')
+```

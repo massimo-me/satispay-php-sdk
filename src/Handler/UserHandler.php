@@ -62,10 +62,11 @@ class UserHandler extends AbstractHandler
      */
     public function findOneById($id)
     {
-        $response = $this->getClient()->request(
-            'GET',
-            sprintf('/online/v1/users/%s', $id)
-        );
+        $response = $this->getClient()
+            ->request(
+                'GET',
+                sprintf('/online/v1/users/%s', $id)
+            );
 
         if (! $this->isResponseOk($response)) {
             return null;
@@ -88,17 +89,18 @@ class UserHandler extends AbstractHandler
      */
     public function find($limit = 20, $startingAfter = '', $endingBefore = '')
     {
-        $response = $this->getClient()->request(
-            'GET',
-            '/online/v1/users', [
-                'query' =>
-                    [
-                        'limit' => $limit,
-                        'starting_after' => ($startingAfter) ? $startingAfter : null,
-                        'ending_before' => ($endingBefore) ? $endingBefore : null
-                    ]
-            ]
-        );
+        $response = $this->getClient()
+            ->request(
+                'GET',
+                '/online/v1/users', [
+                    'query' =>
+                        [
+                            'limit' => $limit,
+                            'starting_after' => ($startingAfter) ? $startingAfter : null,
+                            'ending_before' => ($endingBefore) ? $endingBefore : null
+                        ]
+                ]
+            );
 
         if (! $this->isResponseOk($response)) {
             return null;
