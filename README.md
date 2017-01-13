@@ -6,6 +6,13 @@
 - [ ] Daily closure
 - [ ] Refunds
 
+#Install
+[Download composer](https://getcomposer.org/download)
+
+`$ composer install`
+
+Don't break your code, since it's a development version. The stable version will be published on https://packagist.org/
+
 #API: Init
 
 ```php
