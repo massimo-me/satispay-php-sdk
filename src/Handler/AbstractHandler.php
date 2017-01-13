@@ -17,20 +17,22 @@ abstract class AbstractHandler
     protected $client;
 
     /**
-     * AbstractHandler constructor.
-     * @param Client $client
-     */
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
-
-    /**
      * @return Client
      */
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * @param Client $client
+     * @return $this
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+
+        return $this;
     }
 
     /**

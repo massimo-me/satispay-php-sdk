@@ -3,6 +3,7 @@
 namespace ChiarilloMassimo\Satispay;
 
 use ChiarilloMassimo\Satispay\Authorization\Bearer;
+use ChiarilloMassimo\Satispay\Handler\AbstractHandler;
 use ChiarilloMassimo\Satispay\Handler\BearerHandler;
 use ChiarilloMassimo\Satispay\Handler\UserHandler;
 use ChiarilloMassimo\Satispay\Http\Client;
@@ -58,17 +59,29 @@ class Satispay
         return ('live' === $this->mode);
     }
 
-
     /**
-     * @todo: Auto instance handler
+     * @param $class
+     * @return mixed
      */
+    protected function loadHandler($class)
+    {
+        $handler = new $class;
+
+        if (! $handler instanceof AbstractHandler) {
+            throw new \InvalidArgumentException(sprintf('Invalid handler: %s', $class));
+        }
+
+        $handler->setClient($this->client);
+
+        return $handler;
+    }
 
     /**
      * @return BearerHandler
      */
     public function getBearerHandler()
     {
-        return new BearerHandler($this->client);
+        return $this->loadHandler(BearerHandler::class);
     }
 
     /**
@@ -76,6 +89,6 @@ class Satispay
      */
     public function getUserHandler()
     {
-        return new UserHandler($this->client);
+        return $this->loadHandler(UserHandler::class);
     }
 }
