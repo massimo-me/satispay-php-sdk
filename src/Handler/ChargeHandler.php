@@ -76,7 +76,7 @@ class ChargeHandler extends AbstractHandler
     }
 
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-user-list
+     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-charge-list
      *
      * @param int $limit
      * @param string $startingAfter
