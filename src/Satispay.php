@@ -7,6 +7,7 @@ use ChiarilloMassimo\Satispay\Handler\AbstractHandler;
 use ChiarilloMassimo\Satispay\Handler\BearerHandler;
 use ChiarilloMassimo\Satispay\Handler\ChargeHandler;
 use ChiarilloMassimo\Satispay\Handler\DailyClosureHandler;
+use ChiarilloMassimo\Satispay\Handler\RefundHandler;
 use ChiarilloMassimo\Satispay\Handler\UserHandler;
 use ChiarilloMassimo\Satispay\Http\Client;
 
@@ -108,5 +109,13 @@ class Satispay
     public function getDailyClosureHandler()
     {
         return $this->loadHandler(DailyClosureHandler::class);
+    }
+
+    /**
+     * @return RefundHandler
+     */
+    public function getRefundHandler()
+    {
+        return $this->loadHandler(RefundHandler::class);
     }
 }

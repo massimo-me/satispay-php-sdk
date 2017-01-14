@@ -41,7 +41,7 @@ abstract class AbstractHandler
      * @param Response $response
      * @return bool
      */
-    public function isResponseOk(Response $response)
+    protected function isResponseOk(Response $response)
     {
         return (Response::HTTP_OK === $response->getStatusCode());
     }
@@ -54,7 +54,7 @@ abstract class AbstractHandler
      *
      * @return Response
      */
-    public function findEntities($path, $limit = 20, $startingAfter = '', $endingBefore = '')
+    protected function findEntities($path, $limit = 20, $startingAfter = '', $endingBefore = '')
     {
         $response = $this->getClient()
             ->request(
@@ -79,7 +79,7 @@ abstract class AbstractHandler
      *
      * @return ArrayCollection
      */
-    public function createCollection($class, Response $response)
+    protected function createCollection($class, Response $response)
     {
         $data = $response->getData();
 

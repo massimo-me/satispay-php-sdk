@@ -47,7 +47,7 @@ class Charge extends AbstractEntity
     /**
      * @var string
      */
-    protected $currency;
+    protected $currency = 'EUR';
 
     /**
      * @var int
@@ -55,9 +55,9 @@ class Charge extends AbstractEntity
     protected $amount;
 
     /**
-     * @var array
+     * @var null|array
      */
-    protected $extraFields = [];
+    protected $extraFields = null;
 
     /**
      * @var bool
@@ -340,14 +340,6 @@ class Charge extends AbstractEntity
     }
 
     /**
-     * @return string
-     */
-    public function toJSON()
-    {
-        return json_encode($this->toArray());
-    }
-
-    /**
      * @param object $object
      * @return static
      */
@@ -358,7 +350,12 @@ class Charge extends AbstractEntity
         $user = (new User(PropertyAccess::getValue($object, 'user_id')))
             ->setShortName(PropertyAccess::getValue($object, 'user_short_name'));
 
-        $extraFields = get_object_vars(PropertyAccess::getValue($object, 'metadata'));
+        $extraFields = PropertyAccess::getValue($object, 'metadata');
+
+        if (is_array($extraFields)) {
+            $extraFields = get_object_vars($extraFields);
+        }
+
         $expireDate = new \DateTime(PropertyAccess::getValue($object, 'expire_date'));
 
         $charge

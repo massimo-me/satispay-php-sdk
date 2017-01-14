@@ -4,7 +4,7 @@
 - [X] Users
 - [X] Charges
 - [ ] Daily closure (@WIP)
-- [ ] Refunds
+- [X] Refunds
 
 #Install
 [Download composer](https://getcomposer.org/download)
@@ -118,7 +118,7 @@ $satispay->getChargeHandler()->find(50, 'starting_id', 'ending_id')
 
 $charges = $satispay->getChargeHandler()->find();
 
-foreach ($charge as $chage) {
+foreach ($charges as $charge) {
     //...
 }
 ```
@@ -129,4 +129,51 @@ This feature is in pending
 
 ```php
 $amount = $satispay->getDailyClosureHandler()->getAmount(new \DateTime('2017/01/01'));
+```
+
+##API: Refund
+
+###Creation
+
+```php
+use \ChiarilloMassimo\Satispay\Model\Refund;
+
+$charge = $satispay->getChargeHandler()->findOneById('id');
+
+$refund = new Refund();
+$refund
+    ->setCharge($charge)
+    ->setDescription('Test')
+    ->setAmount(15)
+    ->setReason(Refund::DUPLICATE);
+
+$satispay->getRefundHandler()->persist($refund);
+```
+
+###Get
+
+```php
+$satispay->getRefundHandler()->findOneById('id'));
+```
+
+###Update
+
+```php
+$refund = $satispay->getRefundHandler()->findOneById('id');
+$refund->setDescription('My fantastic description!!');
+
+$satispay->getRefundHandler()->update($refund);
+```
+
+###Find
+
+```php
+$satispay->getRefundHandler()->find()
+$satispay->getRefundHandler()->find(50, 'starting_id', 'ending_id')
+
+$refunds = $satispay->getRefundHandler()->find();
+
+foreach ($refunds as $refund) {
+    //...
+}
 ```

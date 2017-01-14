@@ -73,7 +73,7 @@ class UserHandler extends AbstractHandler
      * @param string $startingAfter
      * @param $endingBefore
      *
-     * @return null|ArrayCollection
+     * @return ArrayCollection
      */
     public function find($limit = 20, $startingAfter = '', $endingBefore = '')
     {
