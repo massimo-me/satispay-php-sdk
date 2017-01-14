@@ -3,7 +3,7 @@
 - [X] Check Bearer
 - [X] Users
 - [X] Charges
-- [ ] Daily closure
+- [ ] Daily closure (@WIP)
 - [ ] Refunds
 
 #Install
@@ -119,4 +119,12 @@ $charges = $satispay->getChargeHandler()->find();
 foreach ($charge as $chage) {
     //...
 }
+```
+
+##API: Daily closure
+
+This feature is in pending
+
+```php
+$amount = $satispay->getDailyClosureHandler()->getAmount(new \DateTime('2017/01/01'));
 ```
