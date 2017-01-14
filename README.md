@@ -2,7 +2,7 @@
 
 - [X] Check Bearer
 - [X] Users
-- [ ] Charges
+- [X] Charges
 - [ ] Daily closure
 - [ ] Refunds
 
