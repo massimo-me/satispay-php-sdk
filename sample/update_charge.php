@@ -7,5 +7,3 @@ $charge = $satispay->getChargeHandler()->findOneById('charge_id');
 $charge->setDescription('My fantastic description!!');
 
 $satispay->getChargeHandler()->update($charge);
-
-var_dump($charge->getDescription());

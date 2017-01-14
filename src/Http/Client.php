@@ -3,7 +3,6 @@
 namespace ChiarilloMassimo\Satispay\Http;
 
 use ChiarilloMassimo\Satispay\Core\SatispayConstants;
-use ChiarilloMassimo\Satispay\Exception\RequestException;
 use ChiarilloMassimo\Satispay\Exception\SatispayException;
 use ChiarilloMassimo\Satispay\Utils\PropertyAccess;
 use GuzzleHttp\Client as BaseClient;

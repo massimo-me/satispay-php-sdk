@@ -21,6 +21,6 @@ $charge
 
 $satispay->getChargeHandler()->persist($charge, true);
 
-var_dump($charge->getId());
-var_dump($charge->isPaid()); //false
-var_dump($charge->getStatus()); //Charge::STATUS_REQUIRED
+$charge->getId();
+$charge->isPaid();
+$charge->getStatus();

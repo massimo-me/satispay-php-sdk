@@ -2,4 +2,4 @@
 
 include 'config.php';
 
-var_dump($satispay->getBearerHandler()->isAuthorized());
+echo $satispay->getBearerHandler()->isAuthorized();

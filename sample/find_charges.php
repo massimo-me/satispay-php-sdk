@@ -3,4 +3,4 @@
 include 'config.php';
 
 //Return ChiarilloMassimo\Satispay\Model\ArrayCollection
-var_dump($satispay->getChargeHandler()->find());
+$satispay->getChargeHandler()->find();
