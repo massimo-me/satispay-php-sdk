@@ -41,7 +41,9 @@ if ($satispay->getBearerHandler()->isAuthorized()) {
 
 ```php
 $satispay->getUserHandler()->createByPhoneNumber('+39 yourphone')
-$satispay->getUserHandler()->persist(new User(null, '+39 yourphone'))
+
+$user = new User(null, '+39 yourphone');
+$satispay->getUserHandler()->persist($user)
 ```
 
 ###Get
