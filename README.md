@@ -1,3 +1,5 @@
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/67c84e89-dfd1-4cd6-8604-53504f5dd101/big.png)](https://insight.sensiolabs.com/projects/67c84e89-dfd1-4cd6-8604-53504f5dd101)
+
 #Satispay PHP SDK
 
 - [X] Check Bearer
