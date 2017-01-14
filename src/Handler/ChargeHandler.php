@@ -2,6 +2,7 @@
 
 namespace ChiarilloMassimo\Satispay\Handler;
 
+use ChiarilloMassimo\Satispay\Model\ArrayCollection;
 use ChiarilloMassimo\Satispay\Model\Charge;
 
 /**
@@ -15,7 +16,7 @@ class ChargeHandler extends AbstractHandler
      *
      * @param $id
      *
-     * @return null|Charge
+     * @return Charge
      */
     public function findOneById($id)
     {
@@ -25,25 +26,21 @@ class ChargeHandler extends AbstractHandler
                 sprintf('/online/v1/charges/%s', $id)
             );
 
-        if (! $this->isResponseOk($response)) {
-            return null;
-        }
-
-        return Charge::makeFromResponse($response);
+        return Charge::makeFromObject($response->getData());
     }
 
     /**
      * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#create-a-charge
      *
      * @param Charge $charge
-     * @param bool $skipPushNotification
+     * @param bool $pushNotification
      *
      * @return bool|Charge
      */
-    public function persist(Charge &$charge, $skipPushNotification = false)
+    public function persist(Charge &$charge, $pushNotification = false)
     {
         $response = $this->getClient()
-            ->addHeader('x-satispay-skip-push', (bool) $skipPushNotification)
+            ->addHeader('x-satispay-skip-push', (bool) $pushNotification)
             ->request(
                 'POST',
                 '/online/v1/charges',
@@ -52,11 +49,7 @@ class ChargeHandler extends AbstractHandler
                 ]
             );
 
-        if (! $this->isResponseOk($response)) {
-            return false;
-        }
-
-        $charge = Charge::makeFromResponse($response);
+        $charge = Charge::makeFromObject($response->getData());
 
         return $charge;
     }
@@ -79,11 +72,28 @@ class ChargeHandler extends AbstractHandler
                 ]
             );
 
-        if (! $this->isResponseOk($response)) {
-            return false;
-        }
+        return Charge::makeFromObject($response->getData());
+    }
 
-        return Charge::makeFromResponse($response);
+    /**
+     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-user-list
+     *
+     * @param int $limit
+     * @param string $startingAfter
+     * @param $endingBefore
+     *
+     * @return null|ArrayCollection
+     */
+    public function find($limit = 20, $startingAfter = '', $endingBefore = '')
+    {
+        $response = $this->findEntities(
+            '/online/v1/charges',
+            $limit,
+            $startingAfter,
+            $endingBefore
+        );
+
+        return $this->createCollection(Charge::class, $response);
     }
 }
 

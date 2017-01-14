@@ -117,21 +117,6 @@ class Response
     }
 
     /**
-     * @param $property
-     * @return mixed|null
-     */
-    public function getProperty($property)
-    {
-        $data = $this->getData();
-
-        if (! $data || ! property_exists($data, $property)) {
-            return null;
-        }
-
-        return $data->$property;
-    }
-
-    /**
      * @return mixed
      */
     public function getErrorCode()

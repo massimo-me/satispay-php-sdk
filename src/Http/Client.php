@@ -5,6 +5,7 @@ namespace ChiarilloMassimo\Satispay\Http;
 use ChiarilloMassimo\Satispay\Core\SatispayConstants;
 use ChiarilloMassimo\Satispay\Exception\RequestException;
 use ChiarilloMassimo\Satispay\Exception\SatispayException;
+use ChiarilloMassimo\Satispay\Utils\PropertyAccess;
 use GuzzleHttp\Client as BaseClient;
 use GuzzleHttp\Exception\ClientException;
 
@@ -75,10 +76,12 @@ class Client extends BaseClient
                 $clientException->getResponse()
             );
 
+            $data = $response->getData();
+
             throw new SatispayException(
                 $response->getStatusCode(),
-                $response->getProperty('message'),
-                $response->getProperty('code')
+                PropertyAccess::getValue($data, 'message'),
+                PropertyAccess::getValue($data, 'code')
             );
         }
     }
@@ -95,6 +98,19 @@ class Client extends BaseClient
         }
 
         $this->getRequestOptions()['headers'][$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param array $headers
+     * @return $this
+     */
+    public function addHeaders(array $headers = [])
+    {
+        foreach ($headers as $name => $value) {
+            $this->addHeader($name, $value);
+        }
 
         return $this;
     }

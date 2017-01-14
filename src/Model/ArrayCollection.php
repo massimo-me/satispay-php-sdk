@@ -3,10 +3,10 @@
 namespace ChiarilloMassimo\Satispay\Model;
 
 /**
- * Class UserCollection
+ * Class ArrayCollection
  * @package ChiarilloMassimo\Satispay\Model
  */
-class UserCollection implements \Iterator
+class ArrayCollection implements \Iterator
 {
     /**
      * @var int
@@ -14,9 +14,9 @@ class UserCollection implements \Iterator
     protected $position = 0;
 
     /**
-     * @var User[]
+     * @var mixed
      */
-    protected $users;
+    protected $elements;
 
     /**
      * @var bool
@@ -24,13 +24,13 @@ class UserCollection implements \Iterator
     protected $more;
 
     /**
-     * UserCollection constructor.
-     * @param array $users
+     * ArrayCollection constructor.
+     * @param array $elements
      * @param bool $more
      */
-    public function __construct(array $users, $more = false)
+    public function __construct(array $elements, $more = false)
     {
-        $this->users = $users;
+        $this->elements = $elements;
         $this->more = $more;
     }
 
@@ -43,11 +43,11 @@ class UserCollection implements \Iterator
     }
 
     /**
-     * @return User
+     * @return mixed
      */
     public function current()
     {
-        return $this->users[$this->position];
+        return $this->elements[$this->position];
     }
 
     /**

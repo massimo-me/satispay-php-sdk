@@ -1,16 +1,8 @@
 <?php
 
-include __DIR__ . '/../vendor/autoload.php';
+include 'config.php';
 
-use ChiarilloMassimo\Satispay\Authorization\Bearer;
-use ChiarilloMassimo\Satispay\Satispay;
-
-$satispay = new Satispay(
-    new Bearer('osh_...'),
-    'sandbox'
-);
-
-//Return ChiarilloMassimo\Satispay\Model\UserCollection
+//Return ChiarilloMassimo\Satispay\Model\ArrayCollection
 var_dump($satispay->getUserHandler()->find());
 var_dump($satispay->getUserHandler()->find(50, 'starting_id', 'ending_id'));
 

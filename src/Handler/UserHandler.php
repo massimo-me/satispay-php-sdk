@@ -3,7 +3,8 @@
 namespace ChiarilloMassimo\Satispay\Handler;
 
 use ChiarilloMassimo\Satispay\Model\User;
-use ChiarilloMassimo\Satispay\Model\UserCollection;
+use ChiarilloMassimo\Satispay\Model\ArrayCollection;
+use ChiarilloMassimo\Satispay\Utils\PropertyAccess;
 
 /**
  * Class UserHandler
@@ -16,7 +17,7 @@ class UserHandler extends AbstractHandler
      *
      * @param User $user
      *
-     * @return bool|User
+     * @return User
      */
     public function persist(User &$user)
     {
@@ -24,19 +25,13 @@ class UserHandler extends AbstractHandler
             'POST',
             '/online/v1/users',
             [
-                'json' => [
-                    'phone_number' => $user->getPhoneNumber()
-                ]
+                'json' => $user->toArray()
             ]
         );
 
-        if (! $this->isResponseOk($response)) {
-            return false;
-        }
+        $data = $response->getData();
 
-        $user->setId(
-            $response->getProperty('id')
-        );
+        $user->setId(PropertyAccess::getValue($data, 'id'));
 
         return $user;
     }
@@ -44,7 +39,7 @@ class UserHandler extends AbstractHandler
     /**
      * @param $phoneNumber
      *
-     * @return bool|User
+     * @return User
      */
     public function createByPhoneNumber($phoneNumber)
     {
@@ -58,7 +53,7 @@ class UserHandler extends AbstractHandler
      *
      * @param $id
      *
-     * @return null|User
+     * @return User
      */
     public function findOneById($id)
     {
@@ -68,14 +63,7 @@ class UserHandler extends AbstractHandler
                 sprintf('/online/v1/users/%s', $id)
             );
 
-        if (! $this->isResponseOk($response)) {
-            return null;
-        }
-
-        return new User(
-            $response->getProperty('id'),
-            $response->getProperty('phone_number')
-        );
+        return User::makeFromObject($response->getData());
     }
 
     /**
@@ -85,39 +73,18 @@ class UserHandler extends AbstractHandler
      * @param string $startingAfter
      * @param $endingBefore
      *
-     * @return null|UserCollection
+     * @return null|ArrayCollection
      */
     public function find($limit = 20, $startingAfter = '', $endingBefore = '')
     {
-        $response = $this->getClient()
-            ->request(
-                'GET',
-                '/online/v1/users', [
-                    'query' =>
-                        [
-                            'limit' => $limit,
-                            'starting_after' => ($startingAfter) ? $startingAfter : null,
-                            'ending_before' => ($endingBefore) ? $endingBefore : null
-                        ]
-                ]
-            );
-
-        if (! $this->isResponseOk($response)) {
-            return null;
-        }
-
-        return new UserCollection(
-            array_map(
-                function($object) {
-                    return new User(
-                        $object->id,
-                        $object->phone_number
-                    );
-                },
-                $response->getProperty('list')
-            ),
-            $response->getProperty('has_more')
+        $response = $this->findEntities(
+            '/online/v1/users',
+            $limit,
+            $startingAfter,
+            $endingBefore
         );
+
+        return $this->createCollection(User::class, $response);
     }
 }
 

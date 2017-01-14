@@ -2,13 +2,13 @@
 
 namespace ChiarilloMassimo\Satispay\Model;
 
-use ChiarilloMassimo\Satispay\Http\Response;
+use ChiarilloMassimo\Satispay\Utils\PropertyAccess;
 
 /**
  * Class Charge
  * @package ChiarilloMassimo\Satispay\Model
  */
-class Charge
+class Charge extends AbstractEntity
 {
     //Charge sent to a user waitng for acceptance
     const STATUS_REQUIRED = 'REQUIRED';
@@ -33,11 +33,6 @@ class Charge
 
     //The Charge has expired
     const EXPIRED = 'EXPIRED';
-
-    /**
-     * @var string
-     */
-    protected $id;
 
     /**
      * @var User
@@ -98,25 +93,6 @@ class Charge
      * @var string
      */
     protected $detail;
-
-    /**
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -372,28 +348,32 @@ class Charge
     }
 
     /**
-     * @param Response $response
+     * @param object $object
      * @return static
      */
-    public static function makeFromResponse(Response $response)
+    public static function makeFromObject($object)
     {
         $charge = new static();
 
-        $user = new User($response->getProperty('user_id'));
+        $user = (new User(PropertyAccess::getValue($object, 'user_id')))
+            ->setShortName(PropertyAccess::getValue($object, 'user_short_name'));
+
+        $extraFields = get_object_vars(PropertyAccess::getValue($object, 'metadata'));
+        $expireDate = new \DateTime(PropertyAccess::getValue($object, 'expire_date'));
 
         $charge
-            ->setId($response->getProperty('id'))
-            ->setDescription($response->getProperty('description'))
-            ->setCurrency($response->getProperty('currency'))
-            ->setAmount($response->getProperty('amount'))
-            ->setStatus($response->getProperty('status'))
-            ->setUser($user->setShortName($response->getProperty('user_short_name')))
-            ->setExtraFields(get_object_vars($response->getProperty('metadata')))
-            ->setPaid($response->getProperty('paid'))
-            ->setSendMail($response->getProperty('required_success_mail'))
-            ->setExpireDate(new \DateTime($response->getProperty('expire_date')))
-            ->setCallbackUrl($response->getProperty('callback_url'))
-            ->setDetail($response->getProperty('status_detail'))
+            ->setId(PropertyAccess::getValue($object, 'id'))
+            ->setUser($user)
+            ->setExtraFields($extraFields)
+            ->setExpireDate($expireDate)
+            ->setDescription(PropertyAccess::getValue($object, 'description'))
+            ->setCurrency(PropertyAccess::getValue($object, 'currency'))
+            ->setAmount(PropertyAccess::getValue($object, 'amount'))
+            ->setStatus(PropertyAccess::getValue($object, 'status'))
+            ->setPaid(PropertyAccess::getValue($object, 'paid'))
+            ->setSendMail(PropertyAccess::getValue($object, 'required_success_mail'))
+            ->setCallbackUrl(PropertyAccess::getValue($object, 'callback_url'))
+            ->setDetail(PropertyAccess::getValue($object, 'status_detail'))
         ;
 
         return $charge;

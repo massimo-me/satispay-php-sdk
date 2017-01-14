@@ -59,7 +59,7 @@ $satispay->getUserHandler()->find(50, 'starting_id', 'ending_id')
 $users = $satispay->getUserHandler()->find();
 
 foreach ($users as $user) {
-    var_dump($user->getPhoneNumber());
+    //...
 }
 ```
 
@@ -106,4 +106,17 @@ $charge = $satispay->getChargeHandler()->findOneById('charge_id')
 $charge->setDescription('My fantastic description!!')
 
 $satispay->getChargeHandler()->update($charge)
+```
+
+###Find
+
+```php
+$satispay->getChargeHandler()->find()
+$satispay->getChargeHandler()->find(50, 'starting_id', 'ending_id')
+
+$charges = $satispay->getChargeHandler()->find();
+
+foreach ($charge as $chage) {
+    //...
+}
 ```

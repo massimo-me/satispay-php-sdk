@@ -1,14 +1,6 @@
 <?php
 
-include __DIR__ . '/../vendor/autoload.php';
-
-use ChiarilloMassimo\Satispay\Authorization\Bearer;
-use ChiarilloMassimo\Satispay\Satispay;
-
-$satispay = new Satispay(
-    new Bearer('osh_...'),
-    'sandbox'
-);
+include 'config.php';
 
 use ChiarilloMassimo\Satispay\Model\Charge;
 
@@ -29,5 +21,6 @@ $charge
 
 $satispay->getChargeHandler()->persist($charge, true);
 
+var_dump($charge->getId());
 var_dump($charge->isPaid()); //false
 var_dump($charge->getStatus()); //Charge::STATUS_REQUIRED
