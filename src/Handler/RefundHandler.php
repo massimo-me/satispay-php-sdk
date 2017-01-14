@@ -38,7 +38,6 @@ class RefundHandler extends AbstractHandler
      */
     public function persist(Refund &$refund)
     {
-        //var_dump(json_encode($refund->toArray()));die;
         $response = $this->getClient()
             ->request(
                 'POST',
