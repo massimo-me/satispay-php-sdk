@@ -20,13 +20,7 @@ class RefundHandler extends AbstractHandler
      */
     public function findOneById($id)
     {
-        $response = $this->getClient()
-            ->request(
-                'GET',
-                sprintf('/online/v1/refunds/%s', $id)
-            );
-
-        return Refund::makeFromObject($response->getData());
+        return $this->loadEntityById(Refund::class, $id);
     }
 
     /**
@@ -38,7 +32,6 @@ class RefundHandler extends AbstractHandler
      */
     public function persist(Refund &$refund)
     {
-        //var_dump(json_encode($refund->toArray()));die;
         $response = $this->getClient()
             ->request(
                 'POST',
@@ -95,4 +88,3 @@ class RefundHandler extends AbstractHandler
         return $this->createCollection(Refund::class, $response);
     }
 }
-

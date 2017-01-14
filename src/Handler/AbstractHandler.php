@@ -2,6 +2,7 @@
 
 namespace ChiarilloMassimo\Satispay\Handler;
 
+use ChiarilloMassimo\Satispay\Core\SatispayEndpoints;
 use ChiarilloMassimo\Satispay\Http\Client;
 use ChiarilloMassimo\Satispay\Http\Response;
 use ChiarilloMassimo\Satispay\Model\ArrayCollection;
@@ -44,6 +45,25 @@ abstract class AbstractHandler
     protected function isResponseOk(Response $response)
     {
         return (Response::HTTP_OK === $response->getStatusCode());
+    }
+
+    /**
+     * @param $entityClass
+     * @param $id
+     * @return mixed
+     */
+    protected function loadEntityById($entityClass, $id)
+    {
+        $response = $this->getClient()
+            ->request(
+                'GET',
+                sprintf('%s/%s', SatispayEndpoints::get($entityClass), $id)
+            );
+
+        return call_user_func_array(
+            [ $entityClass, 'makeFromObject'],
+            [ $response->getData() ]
+        );
     }
 
     /**
