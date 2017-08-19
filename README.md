@@ -1,6 +1,6 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/67c84e89-dfd1-4cd6-8604-53504f5dd101/mini.png)](https://insight.sensiolabs.com/projects/67c84e89-dfd1-4cd6-8604-53504f5dd101)
 
-#Satispay PHP SDK
+# Satispay PHP SDK
 
 - [X] Check Bearer
 - [X] Users
@@ -8,14 +8,14 @@
 - [ ] Daily closure (@WIP)
 - [X] Refunds
 
-#Install
+# Install
 [Download composer](https://getcomposer.org/download)
 
 ```
 $ composer require chiarillomassimo/satispay-php-sdk
 ```
 
-##API: Init
+## API: Init
 
 ```php
 use ChiarilloMassimo\Satispay\Authorization\Bearer;
@@ -27,9 +27,9 @@ $satispay = new Satispay(
 );
 ```
 
-##API: Check Bearer
+## API: Check Bearer
 
-###Check Authorization
+### Check Authorization
 
 ```php
 if ($satispay->getBearerHandler()->isAuthorized()) {
@@ -37,9 +37,9 @@ if ($satispay->getBearerHandler()->isAuthorized()) {
 };
 ```
 
-##API: Users
+## API: Users
 
-###Creation
+### Creation
 
 ```php
 $satispay->getUserHandler()->createByPhoneNumber('+39 yourphone')
@@ -48,13 +48,13 @@ $user = new User(null, '+39 yourphone');
 $satispay->getUserHandler()->persist($user)
 ```
 
-###Get
+### Get
 
 ```php
 $satispay->getUserHandler()->findOneById('id')
 ```
 
-###Find
+### Find
 
 ```php
 $satispay->getUserHandler()->find()
@@ -67,9 +67,9 @@ foreach ($users as $user) {
 }
 ```
 
-##API: Charge
+## API: Charge
 
-###Create
+### Create
 
 ```php
 use ChiarilloMassimo\Satispay\Model\Charge;
@@ -97,13 +97,13 @@ $charge->isPaid(); //false
 $charge->getStatus(); //Charge::STATUS_REQUIRED
 ```
 
-###Get
+### Get
 
 ```php
 $satispay->getChargeHandler()->findOneById('charge_id')
 ```
 
-###Update
+### Update
 
 ```php
 $charge = $satispay->getChargeHandler()->findOneById('charge_id')
@@ -112,7 +112,7 @@ $charge->setDescription('My fantastic description!!')
 $satispay->getChargeHandler()->update($charge)
 ```
 
-###Find
+### Find
 
 ```php
 $satispay->getChargeHandler()->find()
@@ -125,7 +125,7 @@ foreach ($charges as $charge) {
 }
 ```
 
-##API: Daily closure
+## API: Daily closure
 
 This feature is in pending
 
@@ -133,9 +133,9 @@ This feature is in pending
 $amount = $satispay->getDailyClosureHandler()->getAmount(new \DateTime('2017/01/01'));
 ```
 
-##API: Refund
+## API: Refund
 
-###Creation
+### Creation
 
 ```php
 use \ChiarilloMassimo\Satispay\Model\Refund;
@@ -152,13 +152,13 @@ $refund
 $satispay->getRefundHandler()->persist($refund);
 ```
 
-###Get
+### Get
 
 ```php
 $satispay->getRefundHandler()->findOneById('id'));
 ```
 
-###Update
+### Update
 
 ```php
 $refund = $satispay->getRefundHandler()->findOneById('id');
@@ -167,7 +167,7 @@ $refund->setDescription('My fantastic description!!');
 $satispay->getRefundHandler()->update($refund);
 ```
 
-###Find
+### Find
 
 ```php
 $satispay->getRefundHandler()->find()
