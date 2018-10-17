@@ -5,7 +5,7 @@
 - [X] Check Bearer
 - [X] Users
 - [X] Charges
-- [ ] Daily closure (@WIP)
+- [X] Amounts
 - [X] Refunds
 
 # Install
