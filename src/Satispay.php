@@ -4,6 +4,7 @@ namespace ChiarilloMassimo\Satispay;
 
 use ChiarilloMassimo\Satispay\Authorization\Bearer;
 use ChiarilloMassimo\Satispay\Handler\AbstractHandler;
+use ChiarilloMassimo\Satispay\Handler\AmountHandler;
 use ChiarilloMassimo\Satispay\Handler\BearerHandler;
 use ChiarilloMassimo\Satispay\Handler\ChargeHandler;
 use ChiarilloMassimo\Satispay\Handler\DailyClosureHandler;
@@ -117,5 +118,13 @@ class Satispay
     public function getRefundHandler()
     {
         return $this->loadHandler(RefundHandler::class);
+    }
+
+    /**
+     * @return AmountHandler
+     */
+    public function getAmountHandler()
+    {
+        return $this->loadHandler(AmountHandler::class);
     }
 }

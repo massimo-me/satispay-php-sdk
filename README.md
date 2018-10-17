@@ -179,3 +179,15 @@ foreach ($refunds as $refund) {
     //...
 }
 ```
+
+## API: Amounts
+
+### Get
+
+```php
+$amount = $satispay->getAmountHandler()->findBy(
+    new DateTime('2018-01-01'),
+    new DateTime('now')
+);
+```
+
