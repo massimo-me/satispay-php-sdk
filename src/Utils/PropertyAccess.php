@@ -3,8 +3,7 @@
 namespace ChiarilloMassimo\Satispay\Utils;
 
 /**
- * Class PropertyAccess
- * @package ChiarilloMassimo\Satispay\Utils
+ * Class PropertyAccess.
  */
 class PropertyAccess
 {
@@ -16,7 +15,7 @@ class PropertyAccess
      */
     public static function getValue($object, $property)
     {
-        if (! is_object($object) || ! property_exists($object, $property)) {
+        if (!is_object($object) || !property_exists($object, $property)) {
             return null;
         }
 

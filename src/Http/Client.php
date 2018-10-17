@@ -9,8 +9,7 @@ use GuzzleHttp\Client as BaseClient;
 use GuzzleHttp\Exception\ClientException;
 
 /**
- * Class Client
- * @package ChiarilloMassimo\Satispay\Core
+ * Class Client.
  */
 class Client extends BaseClient
 {
@@ -29,7 +28,7 @@ class Client extends BaseClient
     {
         parent::__construct(
             $config + [
-                'base_uri' => ($isLive) ? SatispayConstants::LIVE_ENDPOINT : SatispayConstants::SANDBOX_ENDPOINT
+                'base_uri' => ($isLive) ? SatispayConstants::LIVE_ENDPOINT : SatispayConstants::SANDBOX_ENDPOINT,
             ]
         );
     }
@@ -44,6 +43,7 @@ class Client extends BaseClient
 
     /**
      * @param array $requestOptions
+     *
      * @return $this
      */
     public function setRequestOptions($requestOptions)
@@ -56,9 +56,11 @@ class Client extends BaseClient
     /**
      * @param string $method
      * @param string $uri
-     * @param array $options
-     * @return Response|static
+     * @param array  $options
+     *
      * @throws SatispayException
+     *
+     * @return Response|static
      */
     public function request($method, $uri = '', array $options = [])
     {
@@ -88,11 +90,12 @@ class Client extends BaseClient
     /**
      * @param $name
      * @param $value
+     *
      * @return $this|void
      */
     public function addHeader($name, $value)
     {
-        if (! array_key_exists('headers', $this->requestOptions)) {
+        if (!array_key_exists('headers', $this->requestOptions)) {
             return;
         }
 
@@ -103,6 +106,7 @@ class Client extends BaseClient
 
     /**
      * @param array $headers
+     *
      * @return $this
      */
     public function addHeaders(array $headers = [])

@@ -6,13 +6,12 @@ use ChiarilloMassimo\Satispay\Model\ArrayCollection;
 use ChiarilloMassimo\Satispay\Model\Refund;
 
 /**
- * Class RefundHandler
- * @package ChiarilloMassimo\Satispay\Handler
+ * Class RefundHandler.
  */
 class RefundHandler extends AbstractHandler
 {
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-refund
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-refund
      *
      * @param $id
      *
@@ -30,7 +29,7 @@ class RefundHandler extends AbstractHandler
     }
 
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#create-a-refund
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#create-a-refund
      *
      * @param Refund $refund
      *
@@ -43,7 +42,7 @@ class RefundHandler extends AbstractHandler
                 'POST',
                 '/online/v1/refunds',
                 [
-                    'json' => $refund->toArray()
+                    'json' => $refund->toArray(),
                 ]
             );
 
@@ -53,7 +52,7 @@ class RefundHandler extends AbstractHandler
     }
 
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#update-a-refund
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#update-a-refund
      *
      * @param Refund $refund
      *
@@ -66,7 +65,7 @@ class RefundHandler extends AbstractHandler
                 'PUT',
                 sprintf('/online/v1/refunds/%s', $refund->getId()),
                 [
-                    'json' => $refund->toArray()
+                    'json' => $refund->toArray(),
                 ]
             );
 
@@ -74,9 +73,9 @@ class RefundHandler extends AbstractHandler
     }
 
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-refunds-list
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-refunds-list
      *
-     * @param int $limit
+     * @param int    $limit
      * @param string $startingAfter
      * @param $endingBefore
      *
@@ -94,4 +93,3 @@ class RefundHandler extends AbstractHandler
         return $this->createCollection(Refund::class, $response);
     }
 }
-

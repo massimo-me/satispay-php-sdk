@@ -13,8 +13,7 @@ use ChiarilloMassimo\Satispay\Handler\UserHandler;
 use ChiarilloMassimo\Satispay\Http\Client;
 
 /**
- * Class Satispay
- * @package ChiarilloMassimo\Satispay
+ * Class Satispay.
  */
 class Satispay
 {
@@ -35,6 +34,7 @@ class Satispay
 
     /**
      * Satispay constructor.
+     *
      * @param Bearer $bearer
      * @param $mode
      */
@@ -48,9 +48,9 @@ class Satispay
                 [
                     'headers' => [
                         'Authorization' => sprintf('Bearer %s', $this->bearer->getToken()),
-                        'Content-Type' => 'application/json'
+                        'Content-Type' => 'application/json',
                     ],
-                    'verify' => $this->isLive()
+                    'verify' => $this->isLive(),
                 ]
             );
     }
@@ -60,18 +60,19 @@ class Satispay
      */
     protected function isLive()
     {
-        return ('live' === $this->mode);
+        return 'live' === $this->mode;
     }
 
     /**
      * @param $class
+     *
      * @return mixed
      */
     protected function loadHandler($class)
     {
-        $handler = new $class;
+        $handler = new $class();
 
-        if (! $handler instanceof AbstractHandler) {
+        if (!$handler instanceof AbstractHandler) {
             throw new \InvalidArgumentException(sprintf('Invalid handler: %s', $class));
         }
 

@@ -2,18 +2,17 @@
 
 namespace ChiarilloMassimo\Satispay\Handler;
 
-use ChiarilloMassimo\Satispay\Model\User;
 use ChiarilloMassimo\Satispay\Model\ArrayCollection;
+use ChiarilloMassimo\Satispay\Model\User;
 use ChiarilloMassimo\Satispay\Utils\PropertyAccess;
 
 /**
- * Class UserHandler
- * @package ChiarilloMassimo\Satispay\Handler
+ * Class UserHandler.
  */
 class UserHandler extends AbstractHandler
 {
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#create-a-user
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#create-a-user
      *
      * @param User $user
      *
@@ -25,7 +24,7 @@ class UserHandler extends AbstractHandler
             'POST',
             '/online/v1/users',
             [
-                'json' => $user->toArray()
+                'json' => $user->toArray(),
             ]
         );
 
@@ -49,7 +48,7 @@ class UserHandler extends AbstractHandler
     }
 
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-user
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-user
      *
      * @param $id
      *
@@ -67,9 +66,9 @@ class UserHandler extends AbstractHandler
     }
 
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-user-list
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-user-list
      *
-     * @param int $limit
+     * @param int    $limit
      * @param string $startingAfter
      * @param $endingBefore
      *
@@ -87,4 +86,3 @@ class UserHandler extends AbstractHandler
         return $this->createCollection(User::class, $response);
     }
 }
-

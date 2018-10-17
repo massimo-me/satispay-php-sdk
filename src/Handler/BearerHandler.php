@@ -5,8 +5,7 @@ namespace ChiarilloMassimo\Satispay\Handler;
 use ChiarilloMassimo\Satispay\Http\Response;
 
 /**
- * Class BearerHandler
- * @package ChiarilloMassimo\Satispay\Handler
+ * Class BearerHandler.
  */
 class BearerHandler extends AbstractHandler
 {
@@ -21,7 +20,6 @@ class BearerHandler extends AbstractHandler
                 '/wally-services/protocol/authenticated'
             );
 
-        return (Response::HTTP_NO_CONTENT === $response->getStatusCode());
+        return Response::HTTP_NO_CONTENT === $response->getStatusCode();
     }
 }
-

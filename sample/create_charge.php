@@ -14,10 +14,9 @@ $charge
     ->setExpireMinutes(20)
     ->setExtraFields([
         'orderId' => 'id',
-        'extra' => 'extra'
+        'extra' => 'extra',
     ])
     ->setSendMail(false);
-
 
 $satispay->getChargeHandler()->persist($charge, true);
 

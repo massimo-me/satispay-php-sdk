@@ -5,8 +5,7 @@ namespace ChiarilloMassimo\Satispay\Model;
 use ChiarilloMassimo\Satispay\Utils\PropertyAccess;
 
 /**
- * Class Refund
- * @package ChiarilloMassimo\Satispay\Model
+ * Class Refund.
  */
 class Refund extends AbstractEntity
 {
@@ -64,6 +63,7 @@ class Refund extends AbstractEntity
 
     /**
      * @param Charge $charge
+     *
      * @return $this
      */
     public function setCharge($charge)
@@ -83,6 +83,7 @@ class Refund extends AbstractEntity
 
     /**
      * @param string $description
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -102,6 +103,7 @@ class Refund extends AbstractEntity
 
     /**
      * @param float $amount
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -121,6 +123,7 @@ class Refund extends AbstractEntity
 
     /**
      * @param string $currency
+     *
      * @return $this
      */
     public function setCurrency($currency)
@@ -140,6 +143,7 @@ class Refund extends AbstractEntity
 
     /**
      * @param string $reason
+     *
      * @return $this
      */
     public function setReason($reason)
@@ -159,6 +163,7 @@ class Refund extends AbstractEntity
 
     /**
      * @param array $extraFields
+     *
      * @return $this
      */
     public function setExtraFields($extraFields)
@@ -178,6 +183,7 @@ class Refund extends AbstractEntity
 
     /**
      * @param \DateTime|null $created
+     *
      * @return $this
      */
     public function setCreated($created)
@@ -198,12 +204,13 @@ class Refund extends AbstractEntity
             'currency' => $this->getCurrency(),
             'amount' => $this->getAmount(),
             'reason' => $this->getReason(),
-            'metadata' => $this->getExtraFields()
+            'metadata' => $this->getExtraFields(),
         ];
     }
 
     /**
      * @param $object
+     *
      * @return static
      */
     public static function makeFromObject($object)

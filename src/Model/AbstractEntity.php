@@ -3,8 +3,7 @@
 namespace ChiarilloMassimo\Satispay\Model;
 
 /**
- * Class AbstractEntity
- * @package ChiarilloMassimo\Satispay\Model
+ * Class AbstractEntity.
  */
 abstract class AbstractEntity
 {
@@ -23,6 +22,7 @@ abstract class AbstractEntity
 
     /**
      * @param string $id
+     *
      * @return $this
      */
     public function setId($id)

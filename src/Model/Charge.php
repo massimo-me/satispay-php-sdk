@@ -5,8 +5,7 @@ namespace ChiarilloMassimo\Satispay\Model;
 use ChiarilloMassimo\Satispay\Utils\PropertyAccess;
 
 /**
- * Class Charge
- * @package ChiarilloMassimo\Satispay\Model
+ * Class Charge.
  */
 class Charge extends AbstractEntity
 {
@@ -104,6 +103,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param mixed $user
+     *
      * @return $this
      */
     public function setUser($user)
@@ -123,6 +123,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param mixed $description
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -142,6 +143,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param mixed $currency
+     *
      * @return $this
      */
     public function setCurrency($currency)
@@ -161,6 +163,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param mixed $amount
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -180,6 +183,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param array $extraFields
+     *
      * @return $this
      */
     public function setExtraFields($extraFields)
@@ -199,6 +203,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param mixed $sendMail
+     *
      * @return $this
      */
     public function setSendMail($sendMail)
@@ -218,6 +223,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param int $expireMinutes
+     *
      * @return $this
      */
     public function setExpireMinutes($expireMinutes)
@@ -237,6 +243,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param \DateTime $expireDate
+     *
      * @return $this
      */
     public function setExpireDate($expireDate)
@@ -256,6 +263,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param mixed $callbackUrl
+     *
      * @return $this
      */
     public function setCallbackUrl($callbackUrl)
@@ -266,7 +274,7 @@ class Charge extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPaid()
     {
@@ -274,7 +282,8 @@ class Charge extends AbstractEntity
     }
 
     /**
-     * @param boolean $paid
+     * @param bool $paid
+     *
      * @return $this
      */
     public function setPaid($paid)
@@ -294,6 +303,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param string $status
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -313,6 +323,7 @@ class Charge extends AbstractEntity
 
     /**
      * @param string $detail
+     *
      * @return $this
      */
     public function setDetail($detail)
@@ -335,12 +346,13 @@ class Charge extends AbstractEntity
             'metadata' => $this->getExtraFields(),
             'required_success_email' => $this->getSendMail(),
             'expire_in' => $this->getExpireMinutes(),
-            'callback_url' => $this->getCallbackUrl()
+            'callback_url' => $this->getCallbackUrl(),
         ];
     }
 
     /**
      * @param object $object
+     *
      * @return static
      */
     public static function makeFromObject($object)
