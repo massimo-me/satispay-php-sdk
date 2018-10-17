@@ -125,14 +125,6 @@ foreach ($charges as $charge) {
 }
 ```
 
-## API: Daily closure
-
-This feature is in pending
-
-```php
-$amount = $satispay->getDailyClosureHandler()->getAmount(new \DateTime('2017/01/01'));
-```
-
 ## API: Refund
 
 ### Creation
