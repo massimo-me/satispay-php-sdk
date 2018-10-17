@@ -6,13 +6,12 @@ use ChiarilloMassimo\Satispay\Model\ArrayCollection;
 use ChiarilloMassimo\Satispay\Model\Charge;
 
 /**
- * Class ChargeHandler
- * @package ChiarilloMassimo\Satispay\Handler
+ * Class ChargeHandler.
  */
 class ChargeHandler extends AbstractHandler
 {
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-charge
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-charge
      *
      * @param $id
      *
@@ -30,10 +29,10 @@ class ChargeHandler extends AbstractHandler
     }
 
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#create-a-charge
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#create-a-charge
      *
      * @param Charge $charge
-     * @param bool $pushNotification
+     * @param bool   $pushNotification
      *
      * @return bool|Charge
      */
@@ -45,7 +44,7 @@ class ChargeHandler extends AbstractHandler
                 'POST',
                 '/online/v1/charges',
                 [
-                    'json' => $charge->toArray()
+                    'json' => $charge->toArray(),
                 ]
             );
 
@@ -55,7 +54,7 @@ class ChargeHandler extends AbstractHandler
     }
 
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#update-a-charge
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#update-a-charge
      *
      * @param Charge $charge
      *
@@ -68,7 +67,7 @@ class ChargeHandler extends AbstractHandler
                 'PUT',
                 sprintf('/online/v1/charges/%s', $charge->getId()),
                 [
-                    'json' => $charge->toArray()
+                    'json' => $charge->toArray(),
                 ]
             );
 
@@ -76,9 +75,9 @@ class ChargeHandler extends AbstractHandler
     }
 
     /**
-     * @link https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-charge-list
+     * @see https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#get-a-charge-list
      *
-     * @param int $limit
+     * @param int    $limit
      * @param string $startingAfter
      * @param $endingBefore
      *
@@ -96,4 +95,3 @@ class ChargeHandler extends AbstractHandler
         return $this->createCollection(Charge::class, $response);
     }
 }
-

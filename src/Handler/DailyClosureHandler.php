@@ -4,15 +4,13 @@ namespace ChiarilloMassimo\Satispay\Handler;
 
 use ChiarilloMassimo\Satispay\Utils\PropertyAccess;
 
-
 /**
- * Class DailyClosureHandler
- * @package ChiarilloMassimo\Satispay\Handler
+ * Class DailyClosureHandler.
  */
 class DailyClosureHandler extends AbstractHandler
 {
     /**
-     * https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#api-daily-closure
+     * https://s3-eu-west-1.amazonaws.com/docs.online.satispay.com/index.html#api-daily-closure.
      *
      * @param \DateTime $dateTime
      *
@@ -32,4 +30,3 @@ class DailyClosureHandler extends AbstractHandler
         return PropertyAccess::getValue($data, 'amount');
     }
 }
-

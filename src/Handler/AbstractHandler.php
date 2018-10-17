@@ -8,8 +8,7 @@ use ChiarilloMassimo\Satispay\Model\ArrayCollection;
 use ChiarilloMassimo\Satispay\Utils\PropertyAccess;
 
 /**
- * Class AbstractHandler
- * @package ChiarilloMassimo\Satispay\Handler
+ * Class AbstractHandler.
  */
 abstract class AbstractHandler
 {
@@ -28,6 +27,7 @@ abstract class AbstractHandler
 
     /**
      * @param Client $client
+     *
      * @return $this
      */
     public function setClient($client)
@@ -39,16 +39,17 @@ abstract class AbstractHandler
 
     /**
      * @param Response $response
+     *
      * @return bool
      */
     protected function isResponseOk(Response $response)
     {
-        return (Response::HTTP_OK === $response->getStatusCode());
+        return Response::HTTP_OK === $response->getStatusCode();
     }
 
     /**
      * @param $path
-     * @param int $limit
+     * @param int    $limit
      * @param string $startingAfter
      * @param string $endingBefore
      *
@@ -61,12 +62,11 @@ abstract class AbstractHandler
                 'GET',
                 $path,
                 [
-                    'query' =>
-                        [
+                    'query' => [
                             'limit' => $limit,
                             'starting_after' => ($startingAfter) ? $startingAfter : null,
-                            'ending_before' => ($endingBefore) ? $endingBefore : null
-                        ]
+                            'ending_before' => ($endingBefore) ? $endingBefore : null,
+                        ],
                 ]
             );
 
@@ -85,14 +85,14 @@ abstract class AbstractHandler
 
         return new ArrayCollection(
             array_map(
-                function($object) use ($class) {
+                function ($object) use ($class) {
                     return call_user_func_array(
                         [
                             $class,
-                            'makeFromObject'
+                            'makeFromObject',
                         ],
                         [
-                            $object
+                            $object,
                         ]
                     );
                 },

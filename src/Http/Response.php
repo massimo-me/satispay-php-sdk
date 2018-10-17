@@ -5,8 +5,7 @@ namespace ChiarilloMassimo\Satispay\Http;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
 
 /**
- * Class Response
- * @package ChiarilloMassimo\Satispay\Http
+ * Class Response.
  */
 class Response
 {
@@ -30,6 +29,7 @@ class Response
 
     /**
      * Response constructor.
+     *
      * @param $content
      * @param $statusCode
      * @param array $headers
@@ -51,6 +51,7 @@ class Response
 
     /**
      * @param mixed $content
+     *
      * @return $this
      */
     public function setContent($content)
@@ -70,6 +71,7 @@ class Response
 
     /**
      * @param mixed $statusCode
+     *
      * @return $this
      */
     public function setStatusCode($statusCode)
@@ -89,6 +91,7 @@ class Response
 
     /**
      * @param array $headers
+     *
      * @return $this
      */
     public function setHeaders($headers)
@@ -109,7 +112,7 @@ class Response
 
         $data = json_decode($this->content);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        if (JSON_ERROR_NONE !== json_last_error()) {
             return false;
         }
 
@@ -134,6 +137,7 @@ class Response
 
     /**
      * @param GuzzleResponse $response
+     *
      * @return static
      */
     public static function makeFromGuzzleResponse(GuzzleResponse $response)

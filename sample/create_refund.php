@@ -2,7 +2,7 @@
 
 include 'config.php';
 
-use \ChiarilloMassimo\Satispay\Model\Refund;
+use ChiarilloMassimo\Satispay\Model\Refund;
 
 $charge = $satispay->getChargeHandler()->findOneById('id');
 

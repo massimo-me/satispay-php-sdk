@@ -3,8 +3,7 @@
 namespace ChiarilloMassimo\Satispay\Exception;
 
 /**
- * Class SatispayException
- * @package ChiarilloMassimo\Satispay\Exception
+ * Class SatispayException.
  */
 class SatispayException extends \Exception
 {
@@ -12,8 +11,8 @@ class SatispayException extends \Exception
      * RequestException constructor.
      *
      * @param string $statusCode
-     * @param int $message
-     * @param null $code
+     * @param int    $message
+     * @param null   $code
      */
     public function __construct($statusCode, $message, $code = null)
     {

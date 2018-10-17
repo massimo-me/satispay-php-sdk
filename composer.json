@@ -17,6 +17,7 @@
   },
   "require": {
       "php": ">=5.5",
-      "guzzlehttp/guzzle": "^6.3"
+      "guzzlehttp/guzzle": "^6.3",
+      "friendsofphp/php-cs-fixer": "^2.13"
   }
 }

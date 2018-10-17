@@ -5,12 +5,10 @@ namespace ChiarilloMassimo\Satispay\Model;
 use ChiarilloMassimo\Satispay\Utils\PropertyAccess;
 
 /**
- * Class User
- * @package ChiarilloMassimo\Satispay\Model
+ * Class User.
  */
 class User extends AbstractEntity
 {
-
     /**
      * @var string
      */
@@ -23,6 +21,7 @@ class User extends AbstractEntity
 
     /**
      * User constructor.
+     *
      * @param null $id
      * @param null $phoneNumber
      */
@@ -42,6 +41,7 @@ class User extends AbstractEntity
 
     /**
      * @param string $phoneNumber
+     *
      * @return $this
      */
     public function setPhoneNumber($phoneNumber)
@@ -61,6 +61,7 @@ class User extends AbstractEntity
 
     /**
      * @param string $shortName
+     *
      * @return $this
      */
     public function setShortName($shortName)
@@ -77,12 +78,13 @@ class User extends AbstractEntity
     {
         return [
             'id' => $this->getId(),
-            'phone_number' => $this->getPhoneNumber()
+            'phone_number' => $this->getPhoneNumber(),
         ];
     }
 
     /**
      * @param $object
+     *
      * @return static
      */
     public static function makeFromObject($object)

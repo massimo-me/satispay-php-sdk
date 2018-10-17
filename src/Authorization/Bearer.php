@@ -3,8 +3,7 @@
 namespace ChiarilloMassimo\Satispay\Authorization;
 
 /**
- * Class Bearer
- * @package ChiarilloMassimo\Satispay\Authorization
+ * Class Bearer.
  */
 class Bearer
 {
@@ -15,6 +14,7 @@ class Bearer
 
     /**
      * Bearer constructor.
+     *
      * @param $token
      */
     public function __construct($token)
@@ -24,6 +24,7 @@ class Bearer
 
     /**
      * @param mixed $token
+     *
      * @return $this
      */
     public function setToken($token)

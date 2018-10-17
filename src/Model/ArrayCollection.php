@@ -3,8 +3,7 @@
 namespace ChiarilloMassimo\Satispay\Model;
 
 /**
- * Class ArrayCollection
- * @package ChiarilloMassimo\Satispay\Model
+ * Class ArrayCollection.
  */
 class ArrayCollection implements \Iterator
 {
@@ -25,8 +24,9 @@ class ArrayCollection implements \Iterator
 
     /**
      * ArrayCollection constructor.
+     *
      * @param array $elements
-     * @param bool $more
+     * @param bool  $more
      */
     public function __construct(array $elements, $more = false)
     {
@@ -35,7 +35,7 @@ class ArrayCollection implements \Iterator
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rewind()
     {
@@ -59,7 +59,7 @@ class ArrayCollection implements \Iterator
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function next()
     {
