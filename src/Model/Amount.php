@@ -28,8 +28,7 @@ class Amount
         $totalCharge,
         $totalRefund,
         $currency
-    )
-    {
+    ) {
         $this->totalCharge = $totalCharge;
         $this->totalRefund = $totalRefund;
         $this->currency = $currency;
